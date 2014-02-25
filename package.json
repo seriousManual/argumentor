@@ -1,0 +1,26 @@
+{
+  "name": "f",
+  "version": "0.0.0",
+  "description": "flexible function parameters",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/bin/mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/zaphod1984/f.git"
+  },
+  "keywords": [
+    "function",
+    "parameters"
+  ],
+  "author": " <zaphod84@gmx.de>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zaphod1984/f/issues"
+  },
+  "devDependencies": {
+    "mocha": "~1.17.1",
+    "chai": "~1.9.0"
+  }
+}

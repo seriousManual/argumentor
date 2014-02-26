@@ -25,11 +25,11 @@ function argumentor(client, thisValue) {
         return applied;
     };
 
-    applied.number = typer('number').bind(applied);
-    applied.string = typer('string').bind(applied);
-    applied.object = typer('object').bind(applied);
-    applied.bool = typer('bool').bind(applied);
-    applied.func = typer('func').bind(applied);
+    applied.number = typer('number', applied);
+    applied.string = typer('string', applied);
+    applied.object = typer('object', applied);
+    applied.bool = typer('bool', applied);
+    applied.func = typer('func', applied);
 
     return applied;
 }

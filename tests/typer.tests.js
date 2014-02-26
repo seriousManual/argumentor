@@ -4,7 +4,7 @@ var getTyper = require('../lib/typer');
 var errors = require('../lib/errors');
 
 describe('typer', function() {
-    var paramMock, typer;
+    var paramMock;
 
     beforeEach(function() {
         paramMock = {
@@ -19,9 +19,9 @@ describe('typer', function() {
 
     describe('bool', function() {
         beforeEach(function() {
-            typer = getTyper('bool');
+            var typer = getTyper('bool', paramMock);
 
-            typer.call(paramMock);
+            typer();
         });
 
         it('should cast to true (trueish value)', function() {
@@ -43,28 +43,9 @@ describe('typer', function() {
 
     describe('number', function() {
         beforeEach(function() {
-            typer = getTyper('number');
+            typer = getTyper('number', paramMock);
 
-            typer.call(paramMock);
-        });
-
-        it('should cast numbers', function() {
-            expect(paramMock._typer('1337')).to.equal(1337);
-            expect(paramMock._typer(42)).to.equal(42);
-        });
-
-        it('should throw if NaN', function() {
-            expect(function() {
-                paramMock._typer('foo')
-            }).to.throw(errors.TypeError);
-        });
-    });
-
-    describe('number', function() {
-        beforeEach(function() {
-            typer = getTyper('number');
-
-            typer.call(paramMock);
+            typer();
         });
 
         it('should cast numbers', function() {
@@ -81,9 +62,9 @@ describe('typer', function() {
 
     describe('function', function() {
         beforeEach(function() {
-            typer = getTyper('func');
+            typer = getTyper('func', paramMock);
 
-            typer.call(paramMock);
+            typer.call();
         });
 
         it('should return function', function() {
@@ -100,9 +81,9 @@ describe('typer', function() {
 
     describe('object', function() {
         beforeEach(function() {
-            typer = getTyper('object');
+            typer = getTyper('object', paramMock);
 
-            typer.call(paramMock);
+            typer.call();
         });
 
         it('should return object', function() {
@@ -119,9 +100,9 @@ describe('typer', function() {
 
     describe('string', function() {
         beforeEach(function() {
-            typer = getTyper('string');
+            typer = getTyper('string', paramMock);
 
-            typer.call(paramMock);
+            typer.call();
         });
 
         it('should return a string', function() {

@@ -1,23 +1,23 @@
 {
-  "name": "f",
-  "version": "0.0.0",
-  "description": "flexible function parameters",
+  "name": "Argumentor",
+  "version": "0.0.1",
+  "description": "utility that looks after arguments",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/bin/mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/zaphod1984/f.git"
+    "url": "git://github.com/zaphod1984/argumentor.git"
   },
   "keywords": [
     "function",
     "parameters"
   ],
-  "author": " <zaphod84@gmx.de>",
+  "author": "Manuel Ernst <zaphod84@gmx.de>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/zaphod1984/f/issues"
+    "url": "https://github.com/zaphod1984/argumentor/issues"
   },
   "devDependencies": {
     "mocha": "~1.17.1",

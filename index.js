@@ -1,8 +1,9 @@
 var Parameter = require('./lib/Parameter');
-var sanitize = require('./lib/sanitize');
+var typer = require('./lib/typer');
 var errors = require('./lib/errors');
+var sanitize = require('./lib/sanitize');
 
-function f(client, thisValue) {
+function argumentor(client, thisValue) {
     function applied() {
         var parameters = Array.prototype.slice.call(arguments, 0);
         var sanitizedParameters = sanitize(parameters, applied._parameterConfig);
@@ -24,59 +25,13 @@ function f(client, thisValue) {
         return applied;
     };
 
-    applied.number = function () {
-        applied._currentParameter.converter(function(value) {
-            if(isNaN(value)) throw new errors.TypeError('value is not a number');
-
-            return Number(value);
-        });
-
-        return applied;
-    };
-
-    applied.string = function () {
-        applied._currentParameter.converter(function(value) {
-            return value + '';
-        });
-
-        return applied;
-    };
-
-    applied.object = function() {
-        applied._currentParameter.converter(function(value) {
-            if(typeof value !== 'object') throw new errors.TypeError('value is not a object');
-
-            return value;
-        });
-
-        return applied;
-    };
-
-    applied.bool = function () {
-        applied._currentParameter.converter(function(value) {
-            return !!value;
-        });
-
-        return applied;
-    };
-
-    applied.func = function() {
-        applied._currentParameter.converter(function(value) {
-            if(typeof value !== 'function') {
-                throw new errors.TypeError('value is not a function');
-            }
-
-            return value;
-        });
-    };
-
-    applied.default = function(defaultValue) {
-        applied._currentParameter.default(defaultValue);
-
-        return applied;
-    };
+    applied.number = typer('number').bind(applied);
+    applied.string = typer('string').bind(applied);
+    applied.object = typer('object').bind(applied);
+    applied.bool = typer('bool').bind(applied);
+    applied.func = typer('func').bind(applied);
 
     return applied;
 }
 
-module.exports = f;
+module.exports = argumentor;

@@ -2,6 +2,10 @@
 
 [![Build Status](https://travis-ci.org/zaphod1984/argumentor.png)](https://travis-ci.org/zaphod1984/argumentor)
 
+[![NPM](https://nodei.co/npm/argumentor.png)](https://nodei.co/npm/argumentor/)
+
+[![NPM](https://nodei.co/npm-dl/argumentor.png?months=3)](https://nodei.co/npm/argumentor/)
+
 ````
 function foo(a, b, c) {
     return Array.prototype.slice.call(arguments, 0);

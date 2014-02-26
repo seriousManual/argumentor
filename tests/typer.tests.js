@@ -1,6 +1,6 @@
 var expect = require('chai').expect;
 
-var getTyper = require('../lib/typer');
+var getTyper = require('../lib/chainer');
 var errors = require('../lib/errors');
 
 describe('typer', function() {
@@ -19,7 +19,7 @@ describe('typer', function() {
 
     describe('bool', function() {
         beforeEach(function() {
-            var typer = getTyper('bool', paramMock);
+            var typer = getTyper('typer/bool', 'typer', paramMock);
 
             typer();
         });
@@ -43,7 +43,7 @@ describe('typer', function() {
 
     describe('number', function() {
         beforeEach(function() {
-            typer = getTyper('number', paramMock);
+            typer = getTyper('typer/number', 'typer', paramMock);
 
             typer();
         });
@@ -62,7 +62,7 @@ describe('typer', function() {
 
     describe('function', function() {
         beforeEach(function() {
-            typer = getTyper('func', paramMock);
+            typer = getTyper('typer/func', 'typer', paramMock);
 
             typer.call();
         });
@@ -81,7 +81,7 @@ describe('typer', function() {
 
     describe('object', function() {
         beforeEach(function() {
-            typer = getTyper('object', paramMock);
+            typer = getTyper('typer/object', 'typer', paramMock);
 
             typer.call();
         });
@@ -100,7 +100,7 @@ describe('typer', function() {
 
     describe('string', function() {
         beforeEach(function() {
-            typer = getTyper('string', paramMock);
+            typer = getTyper('typer/string', 'typer', paramMock);
 
             typer.call();
         });

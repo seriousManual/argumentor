@@ -1,7 +1,8 @@
-var Parameter = require('./lib/Parameter');
-var typer = require('./lib/typer');
 var errors = require('./lib/errors');
+var chainer = require('./lib/chainer');
+
 var sanitize = require('./lib/sanitize');
+var Parameter = require('./lib/Parameter');
 
 function argumentor(client, thisValue) {
     function applied() {
@@ -25,11 +26,11 @@ function argumentor(client, thisValue) {
         return applied;
     };
 
-    applied.number = typer('number', applied);
-    applied.string = typer('string', applied);
-    applied.object = typer('object', applied);
-    applied.bool = typer('bool', applied);
-    applied.func = typer('func', applied);
+    applied.number = chainer('typer/number', 'typer', applied);
+    applied.string = chainer('typer/string', 'typer', applied);
+    applied.object = chainer('typer/object', 'typer', applied);
+    applied.bool = chainer('typer/bool', 'typer', applied);
+    applied.func = chainer('typer/func', 'typer', applied);
 
     return applied;
 }

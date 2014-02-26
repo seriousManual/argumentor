@@ -1,6 +1,6 @@
 {
   "name": "Argumentor",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "utility that looks after arguments",
   "main": "index.js",
   "scripts": {

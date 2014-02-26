@@ -1,6 +1,7 @@
 var expect = require('chai').expect;
 
 var getTyper = require('../lib/typer');
+var errors = require('../lib/errors');
 
 describe('typer', function() {
     var paramMock, typer;
@@ -40,4 +41,22 @@ describe('typer', function() {
         });
     });
 
+    describe('number', function() {
+        beforeEach(function() {
+            typer = getTyper('number');
+
+            typer.call(paramMock);
+        });
+
+        it('should cast numbers', function() {
+            expect(paramMock._typer('1337')).to.equal(1337);
+            expect(paramMock._typer(42)).to.equal(42);
+        });
+
+        it('should throw if NaN', function() {
+            expect(function() {
+                paramMock._typer('foo')
+            }).to.throw(errors.TypeError);
+        });
+    });
 });

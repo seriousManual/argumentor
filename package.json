@@ -1,7 +1,7 @@
 {
-  "name": "Argumentor",
+  "name": "argumentor",
   "version": "0.0.2",
-  "description": "utility that looks after arguments",
+  "description": "function tool that takes care of parameters",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha tests"

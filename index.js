@@ -18,10 +18,15 @@ function argumentor(client, thisValue) {
     applied.p = function (name) {
         if(!name) throw new errors.ParameterError('parameter name missing');
 
-        var tmpParameter = new Parameter();
+        var tmpParameter;
+        if(!applied._parameterConfig[name]) {
+            tmpParameter = new Parameter();
+            applied._parameterConfig[name] = tmpParameter;
+        } else {
+            tmpParameter = applied._parameterConfig[name];
+        }
 
         applied._currentParameter = tmpParameter;
-        applied._parameterConfig[name] = tmpParameter;
 
         return applied;
     };

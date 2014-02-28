@@ -41,6 +41,8 @@ function argumentor(client, thisValue) {
 
     applied.default = function(defaultValue) {
         applied._currentParameter.setDefault(defaultValue);
+
+        return applied;
     }
 
     return applied;

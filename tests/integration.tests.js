@@ -38,4 +38,17 @@ describe('integration', function () {
             expect(foo2('1', 1, 100)).to.deep.equal([1, '1', true]);
         });
     });
+
+    describe('default', function() {
+        it('should cast multiple parameters', function() {
+            var foo2 = argumentor(foo)
+                .p('a').number().default(42)
+                .p('b').string().default(100)
+                .p('c').bool().default('spam_eggs');
+
+            expect(foo2('1')).to.deep.equal([1, '100', true]);
+            expect(foo2('1', 42)).to.deep.equal([1, '42', true]);
+            expect(foo2('1', 1, 100)).to.deep.equal([1, '1', true]);
+        });
+    });
 });

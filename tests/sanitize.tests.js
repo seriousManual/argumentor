@@ -19,7 +19,7 @@ describe('sanitize', function () {
                 })
             };
 
-            expect(sanitize(['z', 'y', 'x'], config)).to.deep.equal(['|z|', '+y+', '-x-']);
+            expect(sanitize(['z', 'y', 'x'], config, ['a', 'b', 'c'])).to.deep.equal(['|z|', '+y+', '-x-']);
         });
 
         it('should transform even when more arguments are assigned than declared', function () {
@@ -29,7 +29,7 @@ describe('sanitize', function () {
                 })
             };
 
-            expect(sanitize(['foo', 'bar'], config)).to.deep.equal(['|foo|', 'bar']);
+            expect(sanitize(['foo', 'bar'], config, ['a'])).to.deep.equal(['|foo|', 'bar']);
         });
     });
 
@@ -41,7 +41,7 @@ describe('sanitize', function () {
                 c: new Parameter().setDefault({})
             };
 
-            expect(sanitize([], config)).to.deep.equal(['foo', true, {}]);
+            expect(sanitize([], config, ['a', 'b', 'c'])).to.deep.equal(['foo', true, {}]);
         });
 
         it('should set the default if some arguments are not set', function() {
@@ -51,7 +51,7 @@ describe('sanitize', function () {
                 c: new Parameter().setDefault({})
             };
 
-            expect(sanitize([1, 2], config)).to.deep.equal([1, 2, {}]);
+            expect(sanitize([1, 2], config, ['a', 'b', 'c'])).to.deep.equal([1, 2, {}]);
         });
     });
 

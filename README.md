@@ -19,4 +19,14 @@ var foo2 = argumentor(foo)
 console.log(foo2('1'));  // [1]
 console.log(foo2('1', 1)); // [1, '1']
 console.log(foo2('1', 1, 100)); // [1, '1', true]
+
+var foo2 = argumentor(foo)
+    .p('a').number().default(10)
+    .p('b').string().default(42)
+    .p('c').bool().default(true);
+
+console.log(foo2());  // [10, '42', true]
+console.log(foo2('1'));  // [1, '42', true]
+console.log(foo2('1', 23)); // [1, '23', true]
+console.log(foo2('1', 23, false)); // [1, '23', false]
 ````

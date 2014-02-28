@@ -46,6 +46,7 @@ describe('integration', function () {
                 .p('b').string().default(100)
                 .p('c').bool().default('spam_eggs');
 
+            expect(foo2()).to.deep.equal([42, '100', true]);
             expect(foo2('1')).to.deep.equal([1, '100', true]);
             expect(foo2('1', 42)).to.deep.equal([1, '42', true]);
             expect(foo2('1', 1, 100)).to.deep.equal([1, '1', true]);

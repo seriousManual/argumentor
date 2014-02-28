@@ -9,7 +9,7 @@ describe('typer', function () {
     beforeEach(function () {
         paramMock = {
             _typer: null,
-            _currentParameter: {
+            _currentArgument: {
                 setTyper: function (typer) {
                     paramMock._typer = typer;
                 }

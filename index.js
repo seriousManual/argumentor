@@ -2,33 +2,33 @@ var errors = require('./lib/errors');
 var chainer = require('./lib/chainer');
 
 var sanitize = require('./lib/sanitize');
-var Parameter = require('./lib/Parameter');
+var Argument = require('./lib/Argument');
 
 function argumentor(client, thisValue) {
     function applied() {
-        var parameters = Array.prototype.slice.call(arguments, 0);
-        var sanitizedParameters = sanitize(parameters, applied._parameterConfig, applied._parameterOrder);
+        var argumentsArray = Array.prototype.slice.call(arguments, 0);
+        var sanitizedArguments = sanitize(argumentsArray, applied._argumentsConfig, applied._argumentsOrder);
 
-        return client.apply(thisValue || null, sanitizedParameters);
+        return client.apply(thisValue || null, sanitizedArguments);
     }
 
-    applied._currentParameter = null;
-    applied._parameterConfig = {};
-    applied._parameterOrder = [];
+    applied._currentArgument = null;
+    applied._argumentsConfig = {};
+    applied._argumentsOrder = [];
 
     applied.p = function (name) {
         if (!name) throw new errors.ParameterError('parameter name missing');
 
-        var tmpParameter;
-        if (!applied._parameterConfig[name]) {
-            tmpParameter = new Parameter();
-            applied._parameterConfig[name] = tmpParameter;
-            applied._parameterOrder.push(name);
+        var tmpArgument;
+        if (!applied._argumentsConfig[name]) {
+            tmpArgument = new Argument();
+            applied._argumentsConfig[name] = tmpArgument;
+            applied._argumentsOrder.push(name);
         } else {
-            tmpParameter = applied._parameterConfig[name];
+            tmpArgument = applied._argumentsConfig[name];
         }
 
-        applied._currentParameter = tmpParameter;
+        applied._currentArgument = tmpArgument;
 
         return applied;
     };
@@ -40,10 +40,10 @@ function argumentor(client, thisValue) {
     applied.func = chainer('typer/func', 'setTyper', applied);
 
     applied.default = function(defaultValue) {
-        applied._currentParameter.setDefault(defaultValue);
+        applied._currentArgument.setDefault(defaultValue);
 
         return applied;
-    }
+    };
 
     return applied;
 }

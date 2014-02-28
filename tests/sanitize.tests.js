@@ -1,6 +1,6 @@
 var expect = require('chai').expect;
 
-var Parameter = require('../lib/Parameter');
+var Argument = require('../lib/Argument');
 var sanitize = require('../lib/sanitize');
 
 describe('sanitize', function () {
@@ -8,13 +8,13 @@ describe('sanitize', function () {
     describe('types', function () {
         it('should transform', function () {
             var config = {
-                a: new Parameter().setTyper(function (v) {
+                a: new Argument().setTyper(function (v) {
                     return '|' + v + '|';
                 }),
-                b: new Parameter().setTyper(function (v) {
+                b: new Argument().setTyper(function (v) {
                     return '+' + v + '+';
                 }),
-                c: new Parameter().setTyper(function (v) {
+                c: new Argument().setTyper(function (v) {
                     return '-' + v + '-';
                 })
             };
@@ -24,7 +24,7 @@ describe('sanitize', function () {
 
         it('should transform even when more arguments are assigned than declared', function () {
             var config = {
-                a: new Parameter().setTyper(function (v) {
+                a: new Argument().setTyper(function (v) {
                     return '|' + v + '|';
                 })
             };
@@ -36,9 +36,9 @@ describe('sanitize', function () {
     describe('default', function() {
         it('should set the default if all arguments are not set', function() {
             var config = {
-                a: new Parameter().setDefault('foo'),
-                b: new Parameter().setDefault(true),
-                c: new Parameter().setDefault({})
+                a: new Argument().setDefault('foo'),
+                b: new Argument().setDefault(true),
+                c: new Argument().setDefault({})
             };
 
             expect(sanitize([], config, ['a', 'b', 'c'])).to.deep.equal(['foo', true, {}]);
@@ -46,9 +46,9 @@ describe('sanitize', function () {
 
         it('should set the default if some arguments are not set', function() {
             var config = {
-                a: new Parameter().setDefault('foo'),
-                b: new Parameter().setDefault(true),
-                c: new Parameter().setDefault({})
+                a: new Argument().setDefault('foo'),
+                b: new Argument().setDefault(true),
+                c: new Argument().setDefault({})
             };
 
             expect(sanitize([1, 2], config, ['a', 'b', 'c'])).to.deep.equal([1, 2, {}]);

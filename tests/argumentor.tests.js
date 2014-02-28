@@ -15,7 +15,7 @@ var argumentor = sandboxed.require('../', {
             }
         },
         './lib/sanitize': sanitizeStub,
-        './lib/Parameter': function () {
+        './lib/Argument': function () {
         }
     }
 });
@@ -35,7 +35,7 @@ describe('argumentor', function () {
             .p('e').func()
             .p('a').number();
 
-        expect(foo2._parameterConfig).to.deep.equal({
+        expect(foo2._argumentsConfig).to.deep.equal({
             a: {}, b: {}, c: {}, d: {}, e: {}
         });
 

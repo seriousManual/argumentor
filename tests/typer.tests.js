@@ -10,7 +10,7 @@ describe('typer', function () {
         paramMock = {
             _typer: null,
             _currentParameter: {
-                typer: function (typer) {
+                setTyper: function (typer) {
                     paramMock._typer = typer;
                 }
             }
@@ -19,7 +19,7 @@ describe('typer', function () {
 
     describe('bool', function () {
         beforeEach(function () {
-            var typer = getTyper('typer/bool', 'typer', paramMock);
+            var typer = getTyper('typer/bool', 'setTyper', paramMock);
 
             typer();
         });
@@ -43,7 +43,7 @@ describe('typer', function () {
 
     describe('number', function () {
         beforeEach(function () {
-            typer = getTyper('typer/number', 'typer', paramMock);
+            typer = getTyper('typer/number', 'setTyper', paramMock);
 
             typer();
         });
@@ -62,7 +62,7 @@ describe('typer', function () {
 
     describe('function', function () {
         beforeEach(function () {
-            typer = getTyper('typer/func', 'typer', paramMock);
+            typer = getTyper('typer/func', 'setTyper', paramMock);
 
             typer.call();
         });
@@ -82,7 +82,7 @@ describe('typer', function () {
 
     describe('object', function () {
         beforeEach(function () {
-            typer = getTyper('typer/object', 'typer', paramMock);
+            typer = getTyper('typer/object', 'setTyper', paramMock);
 
             typer.call();
         });
@@ -101,7 +101,7 @@ describe('typer', function () {
 
     describe('string', function () {
         beforeEach(function () {
-            typer = getTyper('typer/string', 'typer', paramMock);
+            typer = getTyper('typer/string', 'setTyper', paramMock);
 
             typer.call();
         });

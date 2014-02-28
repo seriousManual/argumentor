@@ -20,7 +20,7 @@ var argumentor = sandboxed.require('../', {
     }
 });
 
-describe('sanitize', function () {
+describe('argumentor', function () {
 
     function foo() {
         return Array.prototype.slice.call(arguments, 0);
@@ -44,17 +44,18 @@ describe('sanitize', function () {
         expect(foo2.object.subject).to.equal('typer/object');
         expect(foo2.bool.subject).to.equal('typer/bool');
         expect(foo2.func.subject).to.equal('typer/func');
-        expect(foo2.number.target).to.equal('typer');
-        expect(foo2.string.target).to.equal('typer');
-        expect(foo2.object.target).to.equal('typer');
-        expect(foo2.bool.target).to.equal('typer');
-        expect(foo2.func.target).to.equal('typer');
+        expect(foo2.number.target).to.equal('setTyper');
+        expect(foo2.string.target).to.equal('setTyper');
+        expect(foo2.object.target).to.equal('setTyper');
+        expect(foo2.bool.target).to.equal('setTyper');
+        expect(foo2.func.target).to.equal('setTyper');
 
         expect(foo2('a')).to.deep.equal(['foo']);
         expect(sanitizeStub.args).to.deep.equal([
             [
                 [ 'a' ],
-                { a: {}, b: {}, c: {}, d: {}, e: {} }
+                { a: {}, b: {}, c: {}, d: {}, e: {} },
+                ['a', 'b', 'c', 'd', 'e']
             ]
         ]);
     });

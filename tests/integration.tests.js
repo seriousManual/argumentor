@@ -7,6 +7,18 @@ function foo(a, b, c) {
 }
 
 describe('integration', function () {
+    it('should accept a this value', function() {
+        var testFunction = function(a) {
+            this.a = a;
+        };
+
+        var bar = {a: 'spam'};
+
+        argumentor(testFunction, bar)('eggs');
+
+        expect(bar).to.deep.equal({a:'eggs'});
+    });
+
     describe('types', function() {
         it('should cast one parameter', function() {
             var foo2 = argumentor(foo).p('a').number();

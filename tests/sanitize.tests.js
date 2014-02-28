@@ -33,8 +33,8 @@ describe('sanitize', function () {
         });
     });
 
-    describe('default', function() {
-        it('should set the default if all arguments are not set', function() {
+    describe('default', function () {
+        it('should set the default if all arguments are not set', function () {
             var config = {
                 a: new Argument().setDefault('foo'),
                 b: new Argument().setDefault(true),
@@ -44,7 +44,7 @@ describe('sanitize', function () {
             expect(sanitize([], config, ['a', 'b', 'c'])).to.deep.equal(['foo', true, {}]);
         });
 
-        it('should set the default if some arguments are not set', function() {
+        it('should set the default if some arguments are not set', function () {
             var config = {
                 a: new Argument().setDefault('foo'),
                 b: new Argument().setDefault(true),
@@ -52,6 +52,48 @@ describe('sanitize', function () {
             };
 
             expect(sanitize([1, 2], config, ['a', 'b', 'c'])).to.deep.equal([1, 2, {}]);
+        });
+    });
+
+    describe('combinations', function () {
+        it('should adopt to possible arguments combinations', function () {
+            var config = {
+                name: new Argument(),
+                options: new Argument(),
+                callback: new Argument()
+            };
+
+            expect(sanitize(['nameValue', 'optionsValue', 'callbackValue'], config, ['name', 'options', 'callback'], [
+                ['name', 'options', 'callback'],
+                ['name', 'callback'],
+                ['callback']
+            ])).to.deep.equal(['nameValue', 'optionsValue', 'callbackValue']);
+
+            expect(sanitize(['nameValue', 'callbackValue'], config, ['name', 'options', 'callback'], [
+                ['name', 'options', 'callback'],
+                ['name', 'callback'],
+                ['callback']
+            ])).to.deep.equal(['nameValue', undefined, 'callbackValue']);
+
+            expect(sanitize(['callbackValue'], config, ['name', 'options', 'callback'], [
+                ['name', 'options', 'callback'],
+                ['name', 'callback'],
+                ['callback']
+            ])).to.deep.equal([undefined, undefined, 'callbackValue']);
+        });
+
+        it('should throw if no matching combination is found', function () {
+            var config = {
+                name: new Argument(),
+                options: new Argument(),
+                callback: new Argument()
+            };
+
+            expect(function() {
+                sanitize(['nameValue', 'optionsValue', 'callbackValue'], config, ['name', 'options', 'callback'], [
+                    ['callback']
+                ]);
+            }).to.throw();
         });
     });
 

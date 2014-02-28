@@ -55,7 +55,8 @@ describe('argumentor', function () {
             [
                 [ 'a' ],
                 { a: {}, b: {}, c: {}, d: {}, e: {} },
-                ['a', 'b', 'c', 'd', 'e']
+                ['a', 'b', 'c', 'd', 'e'],
+                null
             ]
         ]);
     });

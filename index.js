@@ -7,7 +7,7 @@ var Argument = require('./lib/Argument');
 function argumentor(client, thisValue) {
     function applied() {
         var argumentsArray = Array.prototype.slice.call(arguments, 0);
-        var sanitizedArguments = sanitize(argumentsArray, applied._argumentsConfig, applied._argumentsOrder);
+        var sanitizedArguments = sanitize(argumentsArray, applied._argumentsConfig, applied._argumentsOrder, applied._combinations);
 
         return client.apply(thisValue || null, sanitizedArguments);
     }
@@ -15,9 +15,10 @@ function argumentor(client, thisValue) {
     applied._currentArgument = null;
     applied._argumentsConfig = {};
     applied._argumentsOrder = [];
+    applied._combinations = null;
 
     applied.p = function (name) {
-        if (!name) throw new errors.ParameterError('parameter name missing');
+        if (!name) throw new errors.ArgumentError('parameter name missing');
 
         var tmpArgument;
         if (!applied._argumentsConfig[name]) {
@@ -39,10 +40,14 @@ function argumentor(client, thisValue) {
     applied.bool = chainer('typer/bool', 'setTyper', applied);
     applied.func = chainer('typer/func', 'setTyper', applied);
 
-    applied.default = function(defaultValue) {
+    applied.default = function (defaultValue) {
         applied._currentArgument.setDefault(defaultValue);
 
         return applied;
+    };
+
+    applied.combinations = function (combinations) {
+        applied._combinations = combinations;
     };
 
     return applied;

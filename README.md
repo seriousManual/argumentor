@@ -29,4 +29,18 @@ console.log(foo2());  // [10, '42', true]
 console.log(foo2('1'));  // [1, '42', true]
 console.log(foo2('1', 23)); // [1, '23', true]
 console.log(foo2('1', 23, false)); // [1, '23', false]
+
+var foo3 = argumentor(foo)
+    .p('a').number().default(10)
+    .p('b').string().default(42)
+    .p('c').string().default('foo)
+    .combinations([
+        ['a', 'b', 'c'],
+        ['a', 'c'],
+        ['c']
+    ]);
+
+console.log(foo2('cValue));  // [10, '42', 'cValue']
+console.log(foo2(1337, 'cValue)); // [1337, '42', 'cValue]
+console.log(foo2(1337, 'bValue', false)); // [1, '23', false]
 ````

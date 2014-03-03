@@ -40,7 +40,7 @@ describe('integration', function () {
     });
 
     describe('default', function() {
-        it('should cast multiple parameters', function() {
+        it('should set defaults at parameters that are not set', function() {
             var foo2 = argumentor(foo)
                 .p('a').number().default(42)
                 .p('b').string().default(100)
@@ -52,4 +52,8 @@ describe('integration', function () {
             expect(foo2('1', 1, 100)).to.deep.equal([1, '1', true]);
         });
     });
+    
+    //should resolve combinations
+    
+    //should do everything
 });

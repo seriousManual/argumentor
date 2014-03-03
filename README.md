@@ -9,7 +9,7 @@
 ## Types
 
 Have you ever been doing this?
-````
+````javascript
 function foo(a, b) {
     a = +a;         //Number cast
     b = b + '';     //String cast
@@ -17,18 +17,18 @@ function foo(a, b) {
 }
 ````
 Argumentor wraps your function and takes care of types:
-````
+````javascript
 var fooWrapped = argumentor(foo)
     .p('a').number()
     .p('b').string();
 
-fooWrapped('1', 123); //arguments would be `[1, '123']`
+fooWrapped('1', 123); //arguments would be [1, '123']
 ````
 
 ## Defaults
 
 Have you ever been doing this?
-````
+````javascript
 function foo(a, b) {
     a = a || 'foo';
     b = b || null;
@@ -36,18 +36,18 @@ function foo(a, b) {
 }
 ````
 Argumentor wraps your function and takes care of defaults:
-````
+````javascript
 var fooWrapped = argumentor(foo)
     .p('a').default('foo')
     .p('b').default(null);
 
-fooWrapped(); //arguments would be `['foo', null]`
+fooWrapped(); //arguments would be ['foo', null]
 ````
 
 ## Combinations
 
 Have you ever been doing this?
-````
+````javascript
 function foo(name, options, callback) {
     if(typeof name === 'function') {
         callback = name;
@@ -61,14 +61,14 @@ function foo(name, options, callback) {
 }
 ````
 Argumentor wraps your function and recognizes possibile argument combinations:
-````
+````javascript
 var fooWrapped = argumentor(foo)
     .p('name').default('defaultName')
     .p('options').default({})
     .p('callback').func()
     .combinations([['name', 'options', 'callback'], ['name', 'callback'], ['callback']]);
 
-fooWrapped(function cb() {});                       //arguments would be `['defaultName', {}, function cb() {}]`
-fooWrapped('barName', function cb() {});            //arguments would be `['barName', {}, function cb() {}]`
-fooWrapped('barName', {a: 'b'}, function cb() {});  //arguments would be `['barName', {a: 'b'}, function cb() {}]`
+fooWrapped(function cb() {});                       //arguments would be ['defaultName', {}, function cb() {}]
+fooWrapped('barName', function cb() {});            //arguments would be ['barName', {}, function cb() {}]
+fooWrapped('barName', {a: 'b'}, function cb() {});  //arguments would be ['barName', {a: 'b'}, function cb() {}]
 ````

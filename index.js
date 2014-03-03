@@ -48,6 +48,8 @@ function argumentor(client, thisValue) {
 
     applied.combinations = function (combinations) {
         applied._combinations = combinations;
+
+        return applied;
     };
 
     return applied;

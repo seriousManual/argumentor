@@ -33,7 +33,8 @@ describe('argumentor', function () {
             .p('c').object()
             .p('d').bool()
             .p('e').func()
-            .p('a').number();
+            .p('a').number()
+            .combinations([['a']]);
 
         expect(foo2._argumentsConfig).to.deep.equal({
             a: {}, b: {}, c: {}, d: {}, e: {}
@@ -56,7 +57,7 @@ describe('argumentor', function () {
                 [ 'a' ],
                 { a: {}, b: {}, c: {}, d: {}, e: {} },
                 ['a', 'b', 'c', 'd', 'e'],
-                null
+                [['a']]
             ]
         ]);
     });

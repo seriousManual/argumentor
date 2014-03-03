@@ -11,8 +11,8 @@
 Have you ever been doing this?
 ````
 function foo(a, b) {
-    a = +a;
-    b = b + '';
+    a = +a;         //Number cast
+    b = b + '';     //String cast
     //...
 }
 ````
@@ -22,7 +22,7 @@ var fooWrapped = argumentor(foo)
     .p('a').number()
     .p('b').string();
 
-fooWrapped('1', 123); //arguments would be 1 and '123'
+fooWrapped('1', 123); //arguments would be `[1, '123']`
 ````
 
 ## Defaults
@@ -40,6 +40,8 @@ Argumentor wraps your function and takes care of defaults:
 var fooWrapped = argumentor(foo)
     .p('a').default('foo')
     .p('b').default(null);
+
+fooWrapped(); //arguments would be `['foo', null]`
 ````
 
 ## Combinations
@@ -65,4 +67,8 @@ var fooWrapped = argumentor(foo)
     .p('options').default({})
     .p('callback').func()
     .combinations([['name', 'options', 'callback'], ['name', 'callback'], ['callback']]);
+
+fooWrapped(function cb() {});                       //arguments would be `['defaultName', {}, function cb() {}]`
+fooWrapped('barName', function cb() {});            //arguments would be `['barName', {}, function cb() {}]`
+fooWrapped('barName', {a: 'b'}, function cb() {});  //arguments would be `['barName', {a: 'b'}, function cb() {}]`
 ````

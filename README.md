@@ -32,6 +32,7 @@ Have you ever been doing this?
 function foo(a, b) {
     a = a || 'foo';
     b = b || null;
+    //...
 }
 ````
 Argumentor wraps your function and takes care of defaults:
@@ -54,7 +55,6 @@ function foo(name, options, callback) {
         callback = options;
         options = {};
     }
-
     //maintenance nightmare!
 }
 ````

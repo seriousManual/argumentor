@@ -36,5 +36,5 @@ describe('Argument', function() {
 
         expect(arg.hasDefault()).to.be.true;
         expect(arg.getDefault()).to.deep.equal({});
-    })
+    });
 });

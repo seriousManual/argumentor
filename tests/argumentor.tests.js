@@ -62,4 +62,13 @@ describe('argumentor', function () {
         ]);
     });
 
+
+    it('should throw if no execution context exists', function() {
+        var argumentor = require('../');
+
+        expect(function() {
+            argumentor(foo).number();
+        }).throw(Error, /missing execution context/);
+    });
+
 });

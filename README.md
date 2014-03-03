@@ -6,6 +6,8 @@
 
 [![NPM](https://nodei.co/npm-dl/argumentor.png?months=3)](https://nodei.co/npm/argumentor/)
 
+Argumentor is a little utility tool that brings types, defaults and arbitrary combinations to your function's arguments.
+
 ## Types
 
 Have you ever been doing this?
@@ -63,12 +65,22 @@ function foo(name, options, callback) {
 Argumentor wraps your function and recognizes possibile argument combinations:
 ````javascript
 var fooWrapped = argumentor(foo)
-    .p('name').default('defaultName')
-    .p('options').default({})
-    .p('callback').func()
+    .p('name')
+    .p('options')
+    .p('callback')
     .combinations([['name', 'options', 'callback'], ['name', 'callback'], ['callback']]);
 
-fooWrapped(function cb() {});                       //arguments would be ['defaultName', {}, function cb() {}]
-fooWrapped('barName', function cb() {});            //arguments would be ['barName', {}, function cb() {}]
+fooWrapped(function cb() {});                       //arguments would be [undefined, undefined, function cb() {}]
+fooWrapped('barName', function cb() {});            //arguments would be ['barName', undefined, function cb() {}]
 fooWrapped('barName', {a: 'b'}, function cb() {});  //arguments would be ['barName', {a: 'b'}, function cb() {}]
+````
+
+## Combined usage
+The real power of argumentor comes into play when using this three abilities of argumentor in combination:
+````javascript
+var fooWrapped = argumentor(foo)
+    .p('name').string().default('nameDefault')
+    .p('options').object().default(function() { return {}; })
+    .p('callback').func().default(function() { return function() {}; })
+    .combinations([['name', 'options', 'callback'], ['name', 'callback'], ['callback']]);
 ````

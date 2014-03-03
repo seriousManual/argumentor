@@ -121,7 +121,7 @@ Let's say your default value is an empty object of type `Foo`:
 ````javascript
 var fooWrapped = argumentor(foo)
     .p().object().default(function() {
-        return new Foo
+        return new Foo();
     });
 ````
 

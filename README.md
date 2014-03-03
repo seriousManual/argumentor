@@ -84,3 +84,47 @@ var fooWrapped = argumentor(foo)
     .p('callback').func().default(function() { return function() {}; })
     .combinations([['name', 'options', 'callback'], ['name', 'callback'], ['callback']]);
 ````
+
+# API
+
+## argumentor(fn)
+Creates a wrapped version of `fn`.
+Features a list of configuration methods:
+
+## .p(name)
+Opens a context, the following configuration methods are invoked on that context.
+`name` denotes a handle for the argument.
+The order of argument contexts does matter!
+
+## .bool()
+Denotes that the current argument context should be casted to Boolean.
+
+## .func()
+Denotes that the current argument context should be checked to be a function.
+If this is not the case, an error is thrown.
+
+## .number()
+Denotes that the current argument context should be casted to Number.
+
+## .object()
+Denotes that the current argument context should be checked to be a object.
+If this is not the case, an error is thrown.
+
+## .string()
+Denotes that the current argument context should be casted to String.
+
+## .default(value|fn)
+Sets a default value for the argument of the current execution context.
+If the assigned value is callable it will be invoked to retrieve a default value on run time.
+
+Let's say your default value is an empty object of type `Foo`:
+````javascript
+var fooWrapped = argumentor(foo)
+    .p().object().default(function() {
+        return new Foo
+    });
+````
+
+## .combinations(combinations)
+Specifies possible argument combinations.
+Has to be an array of arrays of Strings. The names in the combinations list refer to the names of the argument execution contexts.

@@ -6,41 +6,63 @@
 
 [![NPM](https://nodei.co/npm-dl/argumentor.png?months=3)](https://nodei.co/npm/argumentor/)
 
+## Types
+
+Have you ever been doing this?
 ````
-function foo(a, b, c) {
-    return Array.prototype.slice.call(arguments, 0);
+function foo(a, b) {
+    a = +a;
+    b = b + '';
+    //...
 }
-
-var foo2 = argumentor(foo)
+````
+Argumentor wraps your function and takes care of types:
+````
+var fooWrapped = argumentor(foo)
     .p('a').number()
-    .p('b').string()
-    .p('c').bool();
+    .p('b').string();
 
-console.log(foo2('1'));  // [1]
-console.log(foo2('1', 1)); // [1, '1']
-console.log(foo2('1', 1, 100)); // [1, '1', true]
+fooWrapped('1', 123); //arguments would be 1 and '123'
+````
 
-var foo2 = argumentor(foo)
-    .p('a').number().default(10)
-    .p('b').string().default(42)
-    .p('c').bool().default(true);
+## Defaults
 
-console.log(foo2());  // [10, '42', true]
-console.log(foo2('1'));  // [1, '42', true]
-console.log(foo2('1', 23)); // [1, '23', true]
-console.log(foo2('1', 23, false)); // [1, '23', false]
+Have you ever been doing this?
+````
+function foo(a, b) {
+    a = a || 'foo';
+    b = b || null;
+}
+````
+Argumentor wraps your function and takes care of defaults:
+````
+var fooWrapped = argumentor(foo)
+    .p('a').default('foo')
+    .p('b').default(null);
+````
 
-var foo3 = argumentor(foo)
-    .p('a').number().default(10)
-    .p('b').string().default(42)
-    .p('c').string().default('foo)
-    .combinations([
-        ['a', 'b', 'c'],
-        ['a', 'c'],
-        ['c']
-    ]);
+## Combinations
 
-console.log(foo2('cValue));  // [10, '42', 'cValue']
-console.log(foo2(1337, 'cValue)); // [1337, '42', 'cValue]
-console.log(foo2(1337, 'bValue', false)); // [1, '23', false]
+Have you ever been doing this?
+````
+function foo(name, options, callback) {
+    if(typeof name === 'function') {
+        callback = name;
+        name = 'defaultName';
+        options = {};
+    } else if (typeof options === 'function') {
+        callback = options;
+        options = {};
+    }
+
+    //maintenance nightmare!
+}
+````
+Argumentor wraps your function and recognizes possibile argument combinations:
+````
+var fooWrapped = argumentor(foo)
+    .p('name').default('defaultName')
+    .p('options').default({})
+    .p('callback').func()
+    .combinations([['name', 'options', 'callback'], ['name', 'callback'], ['callback']]);
 ````

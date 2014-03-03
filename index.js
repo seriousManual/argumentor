@@ -17,7 +17,7 @@ function argumentor(client, thisValue) {
     applied._argumentsOrder = [];
     applied._combinations = null;
 
-    applied.p = function (name) {
+    applied.a = function (name) {
         if (!name) throw new errors.ArgumentError('parameter name missing');
 
         var tmpArgument;

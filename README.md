@@ -21,8 +21,8 @@ function foo(a, b) {
 Argumentor wraps your function and takes care of types:
 ````javascript
 var fooWrapped = argumentor(foo)
-    .p('a').number()
-    .p('b').string();
+    .a('a').number()
+    .a('b').string();
 
 fooWrapped('1', 123); //arguments would be [1, '123']
 ````
@@ -40,8 +40,8 @@ function foo(a, b) {
 Argumentor wraps your function and takes care of defaults:
 ````javascript
 var fooWrapped = argumentor(foo)
-    .p('a').default('foo')
-    .p('b').default(null);
+    .a('a').default('foo')
+    .a('b').default(null);
 
 fooWrapped(); //arguments would be ['foo', null]
 ````
@@ -65,9 +65,9 @@ function foo(name, options, callback) {
 Argumentor wraps your function and recognizes possibile argument combinations:
 ````javascript
 var fooWrapped = argumentor(foo)
-    .p('name')
-    .p('options')
-    .p('callback')
+    .a('name')
+    .a('options')
+    .a('callback')
     .combinations([['name', 'options', 'callback'], ['name', 'callback'], ['callback']]);
 
 fooWrapped(function cb() {});                       //arguments would be [undefined, undefined, function cb() {}]
@@ -79,9 +79,9 @@ fooWrapped('barName', {a: 'b'}, function cb() {});  //arguments would be ['barNa
 The real power of argumentor comes into play when using this three abilities of argumentor in combination:
 ````javascript
 var fooWrapped = argumentor(foo)
-    .p('name').string().default('nameDefault')
-    .p('options').object().default(function() { return {}; })
-    .p('callback').func().default(function() { return function() {}; })
+    .a('name').string().default('nameDefault')
+    .a('options').object().default(function() { return {}; })
+    .a('callback').func().default(function() { return function() {}; })
     .combinations([['name', 'options', 'callback'], ['name', 'callback'], ['callback']]);
 ````
 
@@ -91,7 +91,7 @@ var fooWrapped = argumentor(foo)
 Creates a wrapped version of `fn`.
 Features a list of configuration methods:
 
-## .p(name)
+## .a(name)
 Opens a context, the following configuration methods are invoked on that context.
 `name` denotes a handle for the argument.
 The order of argument contexts does matter!
@@ -120,7 +120,7 @@ If the assigned value is callable it will be invoked to retrieve a default value
 Let's say your default value is an empty object of type `Foo`:
 ````javascript
 var fooWrapped = argumentor(foo)
-    .p().object().default(function() {
+    .a('foo).object().default(function() {
         return new Foo();
     });
 ````

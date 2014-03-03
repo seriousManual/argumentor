@@ -28,12 +28,12 @@ describe('argumentor', function () {
 
     it('should', function () {
         var foo2 = argumentor(foo)
-            .p('a').number()
-            .p('b').string()
-            .p('c').object()
-            .p('d').bool()
-            .p('e').func()
-            .p('a').number()
+            .a('a').number()
+            .a('b').string()
+            .a('c').object()
+            .a('d').bool()
+            .a('e').func()
+            .a('a').number()
             .combinations([['a']]);
 
         expect(foo2._argumentsConfig).to.deep.equal({

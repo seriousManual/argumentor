@@ -21,7 +21,7 @@ describe('integration', function () {
 
     describe('types', function() {
         it('should cast one parameter', function() {
-            var foo2 = argumentor(foo).p('a').number();
+            var foo2 = argumentor(foo).a('a').number();
 
             expect(foo2('1')).to.deep.equal([1]);
             expect(foo2('1.1')).to.deep.equal([1.1]);
@@ -29,9 +29,9 @@ describe('integration', function () {
 
         it('should cast multiple parameters', function() {
             var foo2 = argumentor(foo)
-                .p('a').number()
-                .p('b').string()
-                .p('c').bool();
+                .a('a').number()
+                .a('b').string()
+                .a('c').bool();
 
             expect(foo2('1')).to.deep.equal([1]);
             expect(foo2('1', 1)).to.deep.equal([1, '1']);
@@ -42,9 +42,9 @@ describe('integration', function () {
     describe('default', function() {
         it('should set defaults at parameters that are not set', function() {
             var foo2 = argumentor(foo)
-                .p('a').number().default(42)
-                .p('b').string().default(100)
-                .p('c').bool().default('spam_eggs');
+                .a('a').number().default(42)
+                .a('b').string().default(100)
+                .a('c').bool().default('spam_eggs');
 
             expect(foo2()).to.deep.equal([42, '100', true]);
             expect(foo2('1')).to.deep.equal([1, '100', true]);

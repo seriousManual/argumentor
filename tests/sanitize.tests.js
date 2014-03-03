@@ -53,6 +53,14 @@ describe('sanitize', function () {
 
             expect(sanitize([1, 2], config, ['a', 'b', 'c'])).to.deep.equal([1, 2, {}]);
         });
+
+        it('should accept null als valid default', function () {
+            var config = {
+                a: new Argument().setDefault(null)
+            };
+
+            expect(sanitize([], config, ['a'])).to.deep.equal([null]);
+        });
     });
 
     describe('combinations', function () {

@@ -120,7 +120,7 @@ If the assigned value is callable it will be invoked to retrieve a default value
 Let's say your default value is an empty object of type `Foo`:
 ````javascript
 var fooWrapped = argumentor(foo)
-    .a('foo).object().default(function() {
+    .a('foo').object().default(function() {
         return new Foo();
     });
 ````

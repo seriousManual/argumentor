@@ -20,6 +20,8 @@ function foo(a, b) {
 ````
 Argumentor wraps your function and takes care of types:
 ````javascript
+var argumentor = require('argumentor');
+
 var fooWrapped = argumentor(foo)
     .a('a').number()
     .a('b').string();
@@ -39,6 +41,8 @@ function foo(a, b) {
 ````
 Argumentor wraps your function and takes care of defaults:
 ````javascript
+var argumentor = require('argumentor');
+
 var fooWrapped = argumentor(foo)
     .a('a').default('foo')
     .a('b').default(null);
@@ -64,6 +68,8 @@ function foo(name, options, callback) {
 ````
 Argumentor wraps your function and recognizes possibile argument combinations:
 ````javascript
+var argumentor = require('argumentor');
+
 var fooWrapped = argumentor(foo)
     .a('name')
     .a('options')
@@ -78,6 +84,8 @@ fooWrapped('barName', {a: 'b'}, function cb() {});  //arguments would be ['barNa
 ## Combined usage
 The real power of argumentor comes into play when using this three abilities of argumentor in combination:
 ````javascript
+var argumentor = require('argumentor');
+
 var fooWrapped = argumentor(foo)
     .a('name').string().default('nameDefault')
     .a('options').object().default(function() { return {}; })
@@ -119,6 +127,8 @@ If the assigned value is callable it will be invoked to retrieve a default value
 
 Let's say your default value is an empty object of type `Foo`:
 ````javascript
+var argumentor = require('argumentor');
+
 var fooWrapped = argumentor(foo)
     .a('foo').object().default(function() {
         return new Foo();

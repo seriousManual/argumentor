@@ -8,7 +8,9 @@ Argumentor is a little utility tool that brings types, defaults and arbitrary co
 
 ## Installation
 
-`npm install argumentor`
+````bash
+npm install argumentor
+````
 
 ## Types
 

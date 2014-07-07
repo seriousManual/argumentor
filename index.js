@@ -6,7 +6,11 @@ var Argument = require('./lib/Argument');
 
 function argumentor(client, thisValue) {
     function applied() {
-        var argumentsArray = Array.prototype.slice.call(arguments, 0);
+        var argumentsArray = [];
+        for(var i = 0; i < arguments.length; i++) {
+            argumentsArray.push(arguments[i]);
+        }
+
         var sanitizedArguments = sanitize(argumentsArray, applied._argumentsConfig, applied._argumentsOrder, applied._combinations);
 
         return client.apply(thisValue || null, sanitizedArguments);
